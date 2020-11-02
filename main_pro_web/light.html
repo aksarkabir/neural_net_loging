@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="w3.css">
+    <link rel="stylesheet" href="w3c.css">
+    <script src="jq.js">
+
+    </script>
+    <title>Light control</title>
+  </head>
+  <body>
+    <div class="w3-container">
+      <a href="index.html" class="w3-button w3-text-blue w3-left">logout</a>
+      <h1 class="w3-center">All the switch</h1>
+      <div class="w3-center">
+        <div id="d1" class="w3-cell w3-red w3-third w3-border w3-border-blue">
+          <h2 id="l1" class="w3-center">OFF</h2>
+          <button id = "b1" onclick="b_1()" type="button" name="button" class="w3-button w3-win8-steel w3-round-xlarge w3-margin" style="height:150px;width:150px;">light A</button>
+        </div>
+        <div id="d2" class="w3-cell w3-red w3-third w3-border w3-border-blue">
+          <h2 id="l2" class="w3-center">OFF</h2>
+          <button id="b2" onclick="b_2()" type="button" name="button" class="w3-button w3-win8-steel w3-round-xlarge w3-margin" style="height:150px;width:150px;">light B</button>
+        </div>
+        <div id="d3" class="w3-cell w3-red w3-third w3-border w3-border-blue">
+          <h2 id="l3" class="w3-center">OFF</h2>
+          <button id="b3" onclick="b_3()" type="button" name="button" class="w3-button w3-win8-steel w3-round-xlarge w3-margin" style="height:150px;width:150px;">light C</button>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script type="text/javascript">
+  var a = 0,b=0,c=0;
+    function b_1(){
+      var dt = {};
+      if(a==0){
+        $("#l1").text("ON");
+        a=1;
+        $("#d1").removeClass("w3-red");
+        $("#d1").addClass("w3-green");
+        dt["light"]=1
+        dt["active"]=a;
+        var j = JSON.stringify(dt);
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function() {
+          if (this.readyState == 4 && this.status == 200) {
+            var aaa = this.responseText;
+            $("#test").text(aaa);
+          }
+        };
+        xmlhttp.open("GET", "save_light_data.php?q=" + j, true);
+        xmlhttp.send();
+      }else{
+        a=0;
+        $("#l1").text("OFF");
+        $("#d1").removeClass("w3-green");
+        $("#d1").addClass("w3-red");
+        dt["light"]=1
+        dt["active"]=a;
+        var j = JSON.stringify(dt);
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function() {
+          if (this.readyState == 4 && this.status == 200) {
+            var aaa = this.responseText;
+          }
+        };
+        xmlhttp.open("GET", "save_light_data.php?q=" + j, true);
+        xmlhttp.send();
+      }
+    }
+    function b_2(){
+      var dt = {};
+      if(b==0){
+        $("#l2").text("ON");
+        b=1;
+        $("#d2").removeClass("w3-red");
+        $("#d2").addClass("w3-green");
+        dt["light"]=2
+        dt["active"]=b;
+        var j = JSON.stringify(dt);
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function() {
+          if (this.readyState == 4 && this.status == 200) {
+            var aaa = this.responseText;
+          }
+        };
+        xmlhttp.open("GET", "save_light_data.php?q=" + j, true);
+        xmlhttp.send();
+      }else{
+        b=0;
+        $("#l2").text("OFF");
+        $("#d2").removeClass("w3-green");
+        $("#d2").addClass("w3-red");
+        dt["light"]=2
+        dt["active"]=b;
+        var j = JSON.stringify(dt);
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function() {
+          if (this.readyState == 4 && this.status == 200) {
+            var aaa = this.responseText;
+          }
+        };
+        xmlhttp.open("GET", "save_light_data.php?q=" + j, true);
+        xmlhttp.send();
+      }
+    }
+    function b_3(){
+      var dt = {};
+      if(c==0){
+        $("#l3").text("ON");
+        c=1;
+        $("#d3").removeClass("w3-red");
+        $("#d3").addClass("w3-green");
+        dt["light"]=3
+        dt["active"]=c;
+        var j = JSON.stringify(dt);
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function() {
+          if (this.readyState == 4 && this.status == 200) {
+            var aaa = this.responseText;
+          }
+        };
+        xmlhttp.open("GET", "save_light_data.php?q=" + j, true);
+        xmlhttp.send();
+      }else{
+        c=0;
+        $("#l3").text("OFF");
+        $("#d3").removeClass("w3-green");
+        $("#d3").addClass("w3-red");
+        dt["light"]=3
+        dt["active"]=c;
+        var j = JSON.stringify(dt);
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function() {
+          if (this.readyState == 4 && this.status == 200) {
+            var aaa = this.responseText;
+          }
+        };
+        xmlhttp.open("GET", "save_light_data.php?q=" + j, true);
+        xmlhttp.send();
+      }
+    }
+    function up(){
+      var xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+          var str =this.responseText;
+          var arr = JSON.parse(str);
+          if(arr['light_1']==1){
+            $("#l1").text("ON");
+            a=1;
+            $("#d1").removeClass("w3-red");
+            $("#d1").addClass("w3-green");
+          }else{
+            a=0;
+            $("#l1").text("OFF");
+            $("#d1").removeClass("w3-green");
+            $("#d1").addClass("w3-red");
+          }
+          if(arr['light_2']==1){
+            $("#l2").text("ON");
+            b=1;
+            $("#d2").removeClass("w3-red");
+            $("#d2").addClass("w3-green");
+          }else{
+            b=0;
+            $("#l2").text("OFF");
+            $("#d2").removeClass("w3-green");
+            $("#d2").addClass("w3-red");
+          }
+          if(arr['light_3']==1){
+            $("#l3").text("ON");
+            c=1;
+            $("#d3").removeClass("w3-red");
+            $("#d3").addClass("w3-green");
+          }else{
+            c=0;
+            $("#l3").text("OFF");
+            $("#d3").removeClass("w3-green");
+            $("#d3").addClass("w3-red");
+          }
+        }
+      };
+      xhttp.open("GET", "light_data.txt", true);
+      xhttp.send();
+    }
+//     window.setInterval(function(){
+//   /// call your function here
+//   up();
+// }, 1000);
+  </script>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="w3.css">
+    <title>processing....</title>
+  </head>
+  <body>
+    <div class="w3-container">
+      <h1 class="w3-center w3-text-blue">processing.....please wait</h1>
+      <div class="w3-container w3-center">
+        <div id = "notmatch" class="w3-card-4" style="display:none;">
+          <h1 class="w3-center w3-text-red">Not matched with any id</h1>
+        </div>
+        <div id = "match" class="w3-card-4" style="display:none;">
+          <h1 id = "mid" class="w3-center w3-text-red">matched with shihab</h1>
+        </div>
+      </div>
+      <form id ="pf" class="w3-container w3-card-4 w3-light-grey w3-text-blue" action="checkid.php" method="post" style="display:none;">
+        enter pass
+        <input class="w3-input" type="text" name="password" value="" required>
+        <br>
+        <input class="w3-button w3-blue" type="submit" name="" value="enter the pass">
+      </form>
+    </div>
+    <p id="txtHint"></p>
+  </body>
+  <script type="text/javascript">
+    function check() {
+      var xmlhttp = new XMLHttpRequest();
+      xmlhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+          var str = this.responseText;
+          var arr = JSON.parse(str);
+          if(arr.active==2){
+            var t = "matched with "+arr.name;
+            document.getElementById("match").style.display = "block";
+            document.getElementById("mid").innerHTML =t;
+            document.getElementById("pf").style.display = "block";
+          }else if(arr.active == 3){
+            document.getElementById("notmatch").style.display ="block" ;
+          }
+        }
+      };
+      xmlhttp.open("POST", "data.txt", true);
+      xmlhttp.send();
+    }
+    window.setInterval(function(){
+      check();
+  /// call your function here
+  }, 500);
+  </script>
+</html>
